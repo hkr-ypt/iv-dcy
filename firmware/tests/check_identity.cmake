@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Lucas Wu
+#
+# Fails if the USB vendor or product ID literal appears in any firmware source
+# other than usb_identity.h:  cmake -DSRC=<firmware/src> -P check_identity.cmake
+file(STRINGS "${SRC}/usb_identity.h" vid_line REGEX "^#define USB_VID ")
+file(STRINGS "${SRC}/usb_identity.h" pid_line REGEX "^#define USB_PID ")
+string(REGEX REPLACE "^#define USB_VID +(0x[0-9A-Fa-f]+).*" "\\1" vid "${vid_line}")
+string(REGEX REPLACE "^#define USB_PID +(0x[0-9A-Fa-f]+).*" "\\1" pid "${pid_line}")
+if(NOT vid MATCHES "^0x[0-9A-Fa-f]+$" OR NOT pid MATCHES "^0x[0-9A-Fa-f]+$")
+    message(FATAL_ERROR "could not read USB_VID/USB_PID from usb_identity.h")
+endif()
+string(SUBSTRING "${vid}" 2 -1 vid_hex)
+string(SUBSTRING "${pid}" 2 -1 pid_hex)
+file(GLOB_RECURSE sources "${SRC}/*.c" "${SRC}/*.h" "${SRC}/*.ld")
+set(bad "")
+foreach(f IN LISTS sources)
+    get_filename_component(name "${f}" NAME)
+    if(name STREQUAL "usb_identity.h")
+        continue()
+    endif()
+    file(READ "${f}" text)
+    string(TOLOWER "${text}" text)
+    string(TOLOWER "${vid_hex}" v)
+    string(TOLOWER "${pid_hex}" p)
+    if(text MATCHES "0x0*${v}([^0-9a-f]|$)" OR text MATCHES "0x0*${p}([^0-9a-f]|$)")
+        list(APPEND bad "${name}")
+    endif()
+endforeach()
+if(bad)
+    message(FATAL_ERROR "USB ID literal outside usb_identity.h in: ${bad}")
+endif()
+message(STATUS "USB identity ${vid}:${pid} is defined only in usb_identity.h")

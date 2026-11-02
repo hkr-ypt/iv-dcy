@@ -1,0 +1,26 @@
+IV-DCY USB reference board
+Copyright (c) 2026 Lucas Wu
+
+This repository is distributed under two open licences:
+
+1. Hardware: everything under hardware/ (the SKiDL circuit source, the PCB
+   layout source, the KiCad schematic and board files, the generated
+   manufacturing files and the hardware build scripts) is licensed under the
+   CERN Open Hardware Licence Version 2 - Strongly Reciprocal
+   (SPDX: CERN-OHL-S-2.0). Full text: LICENSES/CERN-OHL-S-2.0.txt
+
+   This source describes Open Hardware and is licensed under the CERN-OHL-S v2.
+   You may redistribute and modify this source and make products using it
+   under the terms of the CERN-OHL-S v2 (https://ohwr.org/cern_ohl_s_v2.txt).
+   This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,
+   INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A
+   PARTICULAR PURPOSE. Please see the CERN-OHL-S v2 for applicable conditions.
+   Source location: https://github.com/hkr-ypt/iv-dcy
+
+2. Software: everything under firmware/ and docs/, and the top-level files,
+   is licensed under the MIT License (SPDX: MIT). Full text: LICENSES/MIT.txt
+
+Each source file carries an SPDX-License-Identifier line naming its licence.
+
+Third-party code is not part of this repository and keeps its own licence;
+see docs/third-party.md.

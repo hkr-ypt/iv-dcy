@@ -1,0 +1,23 @@
+# Build trees
+build/
+firmware/build*/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# KiCad per-user and temporary files
+*.kicad_prl
+*-backups/
+fp-info-cache
+_autosave-*
+*.lck
+~*.lck
+
+# SKiDL side files (regenerated on every run)
+*_sklib.py
+*.erc
+*.log
+skidl_REPL.*
+*-erc.rpt
